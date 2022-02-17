@@ -2,11 +2,20 @@ package com.geekbrains.spring.web.api.carts;
 
 import java.math.BigDecimal;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель товара в корзине")
 public class CartItemDto {
+    @Schema(description = "Id товара", required = true, example = "12")
     private Long productId;
+    @Schema(description = "Название товара", required = true, example = "Молоко")
     private String productTitle;
+    @Schema(description = "Количество товаров", required = true, example = "8")
     private int quantity;
+    @Schema(description = "цена за товар", required = true, example = "500.00")
     private BigDecimal pricePerProduct;
+    @Schema(description = "Общая сумма за все тоары в корзине с этим наименованием", required = true, example = "5000" +
+            ".00")
     private BigDecimal price;
 
     public Long getProductId() {

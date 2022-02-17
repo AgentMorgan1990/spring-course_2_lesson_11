@@ -1,7 +1,12 @@
 package com.geekbrains.spring.web.api.core;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель Деталей заказа")
 public class OrderDetailsDto {
+    @Schema(description = "Адрес", required = true, example = "Ленина 12")
     private String address;
+    @Schema(description = "Телефон", required = true, example = "8916******")
     private String phone;
 
     public String getAddress() {

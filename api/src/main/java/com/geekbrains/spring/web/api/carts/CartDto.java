@@ -3,8 +3,13 @@ package com.geekbrains.spring.web.api.carts;
 import java.math.BigDecimal;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель корзины")
 public class CartDto {
+    @Schema(description = "Список товаров", required = true)
     private List<CartItemDto> items;
+    @Schema(description = "Сумма по всей корзине", required = true, example = "500.00")
     private BigDecimal totalPrice;
 
     public List<CartItemDto> getItems() {
