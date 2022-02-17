@@ -26,6 +26,8 @@ public class ProductsController {
     private final ProductConverter productConverter;
     private final ProductValidator productValidator;
 
+
+    @GetMapping
     @Operation(
             summary = "Запрос на получение страницы продуктов",
             responses = {
@@ -35,7 +37,6 @@ public class ProductsController {
                     )
             }
     )
-    @GetMapping
     public Page<ProductDto> getAllProducts(
             @RequestParam(name = "p", defaultValue = "1") Integer page,
             @RequestParam(name = "min_price", required = false) Integer minPrice,
@@ -67,7 +68,17 @@ public class ProductsController {
         return productConverter.entityToDto(product);
     }
 
+
     @PostMapping
+    @Operation(
+            summary = "Запрос на сохранене нового продукта",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    )
+            }
+    )
     public ProductDto saveNewProduct(@RequestBody ProductDto productDto) {
         productValidator.validate(productDto);
         Product product = productConverter.dtoToEntity(productDto);
@@ -76,13 +87,31 @@ public class ProductsController {
     }
 
     @PutMapping
+    @Operation(
+            summary = "Запрос на обновление продукта",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    )
+            }
+    )
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         productValidator.validate(productDto);
         Product product = productsService.update(productDto);
         return productConverter.entityToDto(product);
     }
 
+
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Запрос на удаление продукта",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200"
+                    )
+            }
+    )
     public void deleteById(@PathVariable Long id) {
         productsService.deleteById(id);
     }
